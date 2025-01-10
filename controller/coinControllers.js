@@ -9,22 +9,17 @@ const fetchAllCoins = asyncHandler(async (req, res) => {
             return res.status(400).json({ success: false, message: 'Error fetching data', error: err })
         })
         const coins = response.data
+        console.log(coins)
 
         const dbCoins = await Currency.find({}, { id: 1 }).catch((err) => {
             return res.status(400).json({ success: false, message: 'Error fetching coins', error: err})
         })
 
-        const newCoins = coins.filter((coin) => !dbCoins.includes(coin.id))
+        await Currency.insertMany(dbCoins).catch((err) => {
+            return res.status(400).json({ success: false, message: 'Error fetching coins from database', error: err })
+        })
+        return res.status(201).json({ success: true, message: 'Coins fetched successfully' })
 
-        if (newCoins.length > 0) {
-            await Currency.insertMany(newCoins).catch((err) => {
-                return res.status(400).json({ success: false, message: 'Error fetching coins from database', error: err })
-            })
-            return res.status(201).json({ success: true, message: 'Coins fetched successfully' })
-        } 
-        else {    
-            return res.status(200).json({ success: false, message: 'No new coins' })
-        }
     } catch (error) {
         return res.status(400).json({ success: false, message: 'Internal error', error: error })
     }
