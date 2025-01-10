@@ -18,7 +18,7 @@ const fetchAllCoins = asyncHandler(async (req, res) => {
         await Currency.insertMany(dbCoins).catch((err) => {
             return res.status(400).json({ success: false, message: 'Error fetching coins from database', error: err })
         })
-        return res.status(201).json({ success: true, message: 'Coins fetched successfully' })
+        return res.status(201).json({ success: true, message: 'Coins fetched successfully', dbCoins })
 
     } catch (error) {
         return res.status(400).json({ success: false, message: 'Internal error', error: error })
