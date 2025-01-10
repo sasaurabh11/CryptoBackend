@@ -8,7 +8,7 @@ Fetches all available cryptocurrencies from an Coingecko's API and updates the d
 
 #### Cryptocurrency conversion
 ```http
-  POST /api/convert-coin
+  POST /api/convert_coin
 ```
 
 | Parameter | Type     | Description                       |
@@ -20,7 +20,7 @@ Fetches all available cryptocurrencies from an Coingecko's API and updates the d
 #### List comapnies holding a cryptocurrency
 
 ```http
-  POST /api/company-list
+  POST /api/company_list
 ```
 
 | Parameter | Type     | Description                       |
